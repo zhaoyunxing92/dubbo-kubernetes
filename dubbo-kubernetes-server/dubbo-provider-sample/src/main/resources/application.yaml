@@ -1,0 +1,15 @@
+dubbo:
+  registry:
+    address: spring-cloud://localhost
+  cloud:
+    subscribed-services: ${provider.application.name}
+  protocols:
+    dubbo:
+      name: dubbo
+      port: 20880
+    rest:
+      name: rest
+      port: 9090
+      server: netty
+server:
+  port: 8810

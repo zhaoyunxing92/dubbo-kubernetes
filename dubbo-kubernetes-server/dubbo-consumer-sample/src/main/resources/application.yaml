@@ -1,0 +1,10 @@
+dubbo:
+  registry:
+    address: spring-cloud://localhost
+  cloud:
+    subscribed-services:
+  protocol:
+    name: dubbo
+    port: 20881
+server:
+  port: 8811
