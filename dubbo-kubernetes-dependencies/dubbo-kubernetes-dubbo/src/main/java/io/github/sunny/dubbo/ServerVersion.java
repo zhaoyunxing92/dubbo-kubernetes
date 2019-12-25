@@ -20,7 +20,7 @@ public class ServerVersion {
      */
     public static String getVersion() {
         Package pkg = ServerVersion.class.getPackage();
-        return (pkg != null) ? pkg.getImplementationVersion() : null;
+        return (pkg.getImplementationVersion() != null) ? pkg.getImplementationVersion() : "";
     }
 
     /**
@@ -30,6 +30,6 @@ public class ServerVersion {
      */
     public static String getName() {
         Package pkg = ServerVersion.class.getPackage();
-        return (pkg != null) ? pkg.getImplementationTitle() : null;
+        return (pkg.getImplementationTitle() != null) ? pkg.getImplementationTitle() : "";
     }
 }

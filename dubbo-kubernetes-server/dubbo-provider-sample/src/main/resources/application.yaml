@@ -1,15 +1,21 @@
+spring:
+  application:
+    name: dubbo-provider-sample
+  profiles:
+    active: local
 dubbo:
   registry:
-    address: spring-cloud://localhost
-  cloud:
-    subscribed-services: ${provider.application.name}
-  protocols:
-    dubbo:
+    address: zookeeper://127.0.0.1:2181
+  protocol:
       name: dubbo
-      port: 20880
-    rest:
-      name: rest
-      port: 9090
-      server: netty
+      port: -1
+#    rest:
+#      name: rest
+#      port: 9090
+#      server: netty
+  scan:
+    base-packages: io.github.sunny.dubbo.service
+  metadata-report:
+    address: zookeeper://127.0.0.1:2181
 server:
   port: 8810

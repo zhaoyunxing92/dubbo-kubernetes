@@ -5,10 +5,13 @@ package io.github.sunny.dubbo.service.impl;
 
 import io.github.sunny.dubbo.ServerVersion;
 import io.github.sunny.dubbo.kubernetes.service.InfoService;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.Service;
+import org.apache.dubbo.rpc.RpcContext;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Objects;
 import java.util.Properties;
 
 /**
@@ -16,6 +19,7 @@ import java.util.Properties;
  * @date: 2019-12-24 23:11
  */
 @Service(interfaceClass = InfoService.class)
+@Slf4j
 public class InfoServiceImpl implements InfoService {
     /**
      * 服务信息
@@ -26,14 +30,21 @@ public class InfoServiceImpl implements InfoService {
     public Properties serverInfo() {
 
         Properties properties = new Properties();
-        InputStream in = getClass().getClassLoader().getResourceAsStream("git.properties");
         try {
-            properties.load(in);
+            InputStream in = getClass().getClassLoader().getResourceAsStream("git.properties");
+            if (Objects.nonNull(in)) {
+                properties.load(in);
+            }
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("git.properties文件不存在");
         }
         properties.setProperty("serverName", ServerVersion.getName());
         properties.getProperty("serverVersion", ServerVersion.getVersion());
         return properties;
+    }
+
+    @Override
+    public String serverName() {
+        return RpcContext.getContext().getRemoteApplicationName();
     }
 }

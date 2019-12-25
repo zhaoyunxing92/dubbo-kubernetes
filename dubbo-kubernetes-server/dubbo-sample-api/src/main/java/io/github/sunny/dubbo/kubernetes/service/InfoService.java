@@ -12,10 +12,14 @@ import java.util.Properties;
  * @date: 2019-12-24 15:23
  */
 public interface InfoService {
+
     /**
      * 服务信息
      *
      * @return Properties
      */
     Properties serverInfo();
+
+    String serverName();
+
 }

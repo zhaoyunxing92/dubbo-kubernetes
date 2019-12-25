@@ -3,8 +3,9 @@
  */
 package io.github.sunny.dubbo;
 
-import org.springframework.boot.SpringApplication;
+import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 
 /**
  * @author zhaoyunxing
@@ -13,6 +14,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class ProviderServer {
     public static void main(String[] args) {
-        SpringApplication.run(ProviderServer.class, args);
+        new SpringApplicationBuilder(ProviderServer.class)
+                .web(WebApplicationType.NONE)
+                .run(args);
     }
 }

@@ -1,10 +1,20 @@
+spring:
+  application:
+    name: dubbo-consumer-sample
+  profiles:
+    active: local
+
 dubbo:
   registry:
-    address: spring-cloud://localhost
-  cloud:
-    subscribed-services:
+    address: zookeeper://127.0.0.1:2181
   protocol:
     name: dubbo
-    port: 20881
+    port: -1
+  consumer:
+    check: false
+  scan:
+    base-packages: io.github.sunny.dubbo.controller
+  metadata-report:
+    address: zookeeper://127.0.0.1:2181
 server:
   port: 8811
