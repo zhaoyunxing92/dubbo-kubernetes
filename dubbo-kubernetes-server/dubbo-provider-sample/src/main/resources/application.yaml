@@ -6,16 +6,13 @@ spring:
 dubbo:
   registry:
     address: zookeeper://127.0.0.1:2181
+    simplified: true
   protocol:
       name: dubbo
       port: -1
-#    rest:
-#      name: rest
-#      port: 9090
-#      server: netty
   scan:
     base-packages: io.github.sunny.dubbo.service
   metadata-report:
     address: zookeeper://127.0.0.1:2181
-server:
-  port: 8810
+  provider:
+    timeout: 5000

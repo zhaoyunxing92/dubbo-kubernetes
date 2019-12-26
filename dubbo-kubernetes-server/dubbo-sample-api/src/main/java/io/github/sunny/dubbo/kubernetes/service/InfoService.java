@@ -20,6 +20,18 @@ public interface InfoService {
      */
     Properties serverInfo();
 
+    /**
+     * 返回服务名称
+     *
+     * @return
+     */
     String serverName();
 
+    /**
+     * echo
+     *
+     * @param name 名称
+     * @return 返回名称
+     */
+    String echo(String name);
 }

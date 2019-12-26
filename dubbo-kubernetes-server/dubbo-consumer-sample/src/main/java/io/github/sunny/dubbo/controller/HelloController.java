@@ -5,6 +5,7 @@ package io.github.sunny.dubbo.controller;
 
 import io.github.sunny.dubbo.kubernetes.service.InfoService;
 import org.apache.dubbo.config.annotation.Reference;
+import org.apache.dubbo.rpc.RpcContext;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,5 +26,10 @@ public class HelloController {
     @GetMapping("/info")
     public Properties getInfo() {
         return infoService.serverInfo();
+    }
+
+    @GetMapping("/name")
+    public String getProviderName() {
+        return "serverName:"+infoService.serverName();
     }
 }

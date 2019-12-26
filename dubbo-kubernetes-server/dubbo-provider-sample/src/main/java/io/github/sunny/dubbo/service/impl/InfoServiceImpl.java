@@ -45,6 +45,17 @@ public class InfoServiceImpl implements InfoService {
 
     @Override
     public String serverName() {
-        return RpcContext.getContext().getRemoteApplicationName();
+        return RpcContext.getContext().getUrl().getParameters().get("application");
+    }
+
+    /**
+     * echo
+     *
+     * @param name 名称
+     * @return 返回名称
+     */
+    @Override
+    public String echo(String name) {
+        return "hello:" + name;
     }
 }
