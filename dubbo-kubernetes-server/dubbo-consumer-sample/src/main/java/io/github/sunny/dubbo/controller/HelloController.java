@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.Properties;
 
 /**
@@ -28,8 +30,8 @@ public class HelloController {
         return infoService.serverInfo();
     }
 
-    @GetMapping("/name")
-    public String getProviderName() {
-        return "serverName:"+infoService.serverName();
+    @GetMapping("/host")
+    public String name() throws UnknownHostException {
+        return InetAddress.getLocalHost().toString();
     }
 }
