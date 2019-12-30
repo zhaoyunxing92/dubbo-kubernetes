@@ -11,7 +11,6 @@
 
     <artifactId>dubbo-consumer-sample</artifactId>
 
-
     <dependencies>
         <dependency>
             <groupId>io.github.sunny</groupId>
@@ -28,6 +27,75 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>pl.project13.maven</groupId>
+                <artifactId>git-commit-id-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>revision</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <dateFormat>yyyy-MM-dd HH:mm:ss:SSS</dateFormat>
+                    <verbose>false</verbose>
+                    <prefix>git</prefix>
+                    <dotGitDirectory>${project.basedir}/.git</dotGitDirectory>
+                    <skipPoms>false</skipPoms>
+                    <generateGitPropertiesFile>true</generateGitPropertiesFile>
+                    <generateGitPropertiesFilename>${project.build.outputDirectory}/git.properties</generateGitPropertiesFilename>
+                    <format>properties</format>
+                    <failOnNoGitDirectory>true</failOnNoGitDirectory>
+                    <gitDescribe>
+                        <skip>false</skip>
+                        <always>false</always>
+                        <abbrev>7</abbrev>
+                        <dirty>-dirty</dirty>
+                        <forceLongFormat>false</forceLongFormat>
+                    </gitDescribe>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <configuration>
+                    <serverId>docker-aliyuncs</serverId>
+                    <dockerHost>http://192.168.56.100:2375</dockerHost>
+                    <imageName>${docker.image.prefix}/${project.artifactId}:${project.version}</imageName>
+                    <workdir>/app</workdir> <!--指定工作目录-->
+                    <forceTags>false</forceTags>
+                    <baseImage>openjdk:8-jdk-alpine</baseImage>
+                    <noCache>true</noCache>
+                    <!--                    <skipDocker>true</skipDocker>-->
+                    <!--                    <dockerDirectory>docker</dockerDirectory>-->
+                    <!--<exposes>-->
+                    <!--<expose>8080</expose>-->
+                    <!--</exposes>-->
+                    <!-- copy the service's jar file from target into the root directory of the image -->
+                    <resources>
+                        <resource>
+                            <targetPath>/</targetPath>
+                            <directory>${project.build.directory}</directory>
+                            <include>${project.build.finalName}.jar</include>
+                        </resource>
+                    </resources>
+                    <runs>
+                        <run>mv /${project.build.finalName}.jar ./</run> <!--复制文件到工作目录-->
+                        <run>ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime</run>
+                        <run>echo 'Asia/Shanghai' > /etc/timezone</run> <!-- 解决时区问题 -->
+                        <!--<run>chmod 755 *</run>-->
+                    </runs>
+                    <entryPoint>["java", "-jar", "${project.build.finalName}.jar","--spring.profiles.active=local"]</entryPoint>
+                </configuration>
             </plugin>
         </plugins>
     </build>
