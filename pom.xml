@@ -40,7 +40,7 @@
         <maven-source-plugin.version>3.1.0</maven-source-plugin.version>
         <git.commit.id.plugin.version>2.2.4</git.commit.id.plugin.version>
         <docker.maven.plugin.version>1.0.0</docker.maven.plugin.version>
-        <docker.image.prefix>registry.cn-hangzhou.aliyuncs.com/zhaoyunxing92</docker.image.prefix>
+        <docker.image.prefix>registry.cn-shenzhen.aliyuncs.com/zhaoyunxing92</docker.image.prefix>
     </properties>
 
     <dependencyManagement>
