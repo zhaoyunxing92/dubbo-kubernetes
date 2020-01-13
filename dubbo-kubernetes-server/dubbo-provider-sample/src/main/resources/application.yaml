@@ -5,7 +5,7 @@ spring:
     active: local
 dubbo:
   registry:
-    address: zookeeper://127.0.0.1:2181
+    address: nacos://172.16.19.233:30829
     simplified: true
   protocol:
       name: dubbo
@@ -13,6 +13,6 @@ dubbo:
   scan:
     base-packages: io.github.sunny.dubbo.service
   metadata-report:
-    address: zookeeper://127.0.0.1:2181
+    address: nacos://172.16.19.233:30829
   provider:
     timeout: 5000
